@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 import Alert from 'react-s-alert';
 
 import AuthInfoManager from '../lib/AuthInfoManager';
