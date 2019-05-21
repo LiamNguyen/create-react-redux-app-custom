@@ -1,7 +1,7 @@
 import { fork, all } from 'redux-saga/effects';
 
-import { receiveSample } from './sample';
+import { watchGetExchangeRate } from './ExchangeRate';
 
 export default function* root() {
-  yield all([fork(receiveSample)]);
+  yield all([fork(watchGetExchangeRate)]);
 }

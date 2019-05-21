@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import _pick from 'lodash/pick';
+import _isEmpty from 'lodash/isEmpty';
 
 import './style.css';
-import Locale from './Locale';
-import AuthInfoManager from '../../../lib/AuthInfoManager';
-import RoutePathConstants from '../../../constants/RoutePathConstants';
-
-const { sampleRoute } = RoutePathConstants;
+import ExchangeRateActions from '../../../actions/ExchangeRateActions';
 
 class SampleScreen extends Component {
-  constructor(props) {
-    super(props);
-
-    if (AuthInfoManager.isAuthorized())
-      this.props.history.push(`/${sampleRoute}`);
+  
+  componentDidMount() {
+    this.props.getExchangeRate();
   }
-
+  
   render() {
-    return <p>{Locale.text.title}</p>;
+    const { ExchangeRate: { exchangeRate: { rates } } } = this.props;
+    
+    return <table><tbody>{
+      !_isEmpty(rates) && Object.keys(rates).map(key => (
+        <tr key={key}>
+          <td style={{ border: 'solid 1px black' }}>{key}</td>
+          <td style={{ border: 'solid 1px black' }}>{rates[key]}</td>
+        </tr>
+      ))
+    }</tbody></table>;
   }
 }
 
-export default SampleScreen;
+export default connect(
+  state => _pick(state, ['ExchangeRate']),
+  dispatch => bindActionCreators({ ...ExchangeRateActions }, dispatch)
+)(SampleScreen);

@@ -8,6 +8,7 @@ import SampleContainer from '../containers/SampleContainer';
 import CustomAlertContent from '../components/common/CustomAlertContent';
 import AuthedAppContainer from '../containers/AuthedAppContainer';
 import RoutePathConstants from '../constants/RoutePathConstants';
+import LoadingOverlayContainer from '../containers/LoadingOverlayContainer';
 
 const { sampleRoute } = RoutePathConstants;
 
@@ -22,6 +23,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <div className="app">
+          <LoadingOverlayContainer />
           <Alert
             stack={false}
             position="top"
